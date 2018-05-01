@@ -4,13 +4,25 @@ import Header from "./Header";
 import Order from "./Order";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
+import base from "../base";
 
 class App extends React.Component {
+  componentDidMount() {
+    const store = this.props.match.params.storeId;
+    this.ref = base.syncState(`${store}/fishes`, {
+      context: this,
+      state: "fishes"
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   state = {
     fishes: {},
     order: {}
-  }
+  };
 
   loadSampleFishes = () => {
     this.setState({ fishes: sampleFishes });
@@ -34,10 +46,7 @@ class App extends React.Component {
     this.setState({ order });
   };
 
-
-
   render() {
-
     return (
       <div className="catch-of-the-day">
         <div className="menu">
@@ -59,10 +68,8 @@ class App extends React.Component {
           loadSampleFishes={this.loadSampleFishes}
         />
       </div>
-
     );
   }
 }
 
 export default App;
-
