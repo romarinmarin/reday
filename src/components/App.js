@@ -7,7 +7,16 @@ import Fish from "./Fish";
 import base from "../base";
 
 class App extends React.Component {
+  // je recupere le panier (order) pour le store en cours via localStorage
   componentDidMount() {
+    const localStorageRef = localStorage.getItem(
+      this.props.match.params.storeId
+    );
+
+    // je setstate ce panier (order)
+    this.setState({ order: JSON.parse(localStorageRef) });
+
+    //je recupere et setstate les Fishes via Firebase (latence)
     const store = this.props.match.params.storeId;
     this.ref = base.syncState(`${store}/fishes`, {
       context: this,
@@ -17,6 +26,14 @@ class App extends React.Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      this.props.match.params.storeId,
+      JSON.stringify(this.state.order)
+    );
+    console.log("update");
   }
 
   state = {
