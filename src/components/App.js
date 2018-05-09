@@ -12,9 +12,12 @@ class App extends React.Component {
     const localStorageRef = localStorage.getItem(
       this.props.match.params.storeId
     );
+    if (localStorageRef) {
+      // je setstate ce panier (order)
+      this.setState({ order: JSON.parse(localStorageRef) });
+    }
 
-    // je setstate ce panier (order)
-    this.setState({ order: JSON.parse(localStorageRef) });
+
 
     //je recupere et setstate les Fishes via Firebase (latence)
     const store = this.props.match.params.storeId;
@@ -54,6 +57,26 @@ class App extends React.Component {
     this.setState({ fishes });
   };
 
+  editFish = (editedFish, key) => {
+
+    const fishes = { ...this.state.fishes };
+
+    fishes[key] = editedFish
+
+    this.setState({ fishes })
+  }
+
+  deleteFish = (key) => {
+
+    const fishes = { ...this.state.fishes };
+    fishes[key] = null
+    this.setState({ fishes })
+
+
+
+
+  }
+
   addToOrder = key => {
     // 1. take a copy of state
     const order = { ...this.state.order };
@@ -81,7 +104,10 @@ class App extends React.Component {
         </div>
         <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory
+          fishes={this.state.fishes}
           addFish={this.addFish}
+          editFish={this.editFish}
+          deleteFish={this.deleteFish}
           loadSampleFishes={this.loadSampleFishes}
         />
       </div>

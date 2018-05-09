@@ -34,6 +34,7 @@ class Order extends Component {
   render() {
     //ici je calcule le total de la commande avec un reduce
 
+
     //mon panier
     const arrOrder = Object.keys(this.props.order);
 
@@ -60,7 +61,7 @@ class Order extends Component {
         <h2>Order</h2>
         <ul className="order">
           {//je loop sur chaque sorte de poisson et je lance la fonction attribue à this.renderOrder)
-          arrOrder.map(this.renderOrder)}
+            arrOrder.map(this.renderOrder)}
           <div className="total">
             Total:
             <strong>{formatPrice(total)}</strong>
