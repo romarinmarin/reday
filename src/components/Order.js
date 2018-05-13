@@ -1,7 +1,15 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types'
+
 import { formatPrice } from "../helpers";
 
 class Order extends Component {
+  static propTypes = {
+    fishes: PropTypes.object,
+    order: PropTypes.object,
+    removeFromOrder: PropTypes.func
+  };
+
   // je crée une fonction render pour eviter de tout mettre dans le render de react directement
   renderOrder = key => {
     // je compte la quantite pour chaques sorte de poisson

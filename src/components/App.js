@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Inventory from "./Inventory";
 import Header from "./Header";
 import Order from "./Order";
@@ -8,6 +9,9 @@ import base from "../base";
 
 class App extends React.Component {
   // je recupere le panier (order) pour le store en cours via localStorage
+  static propTypes = {
+    match: PropTypes.object
+  };
   componentDidMount() {
     const localStorageRef = localStorage.getItem(
       this.props.match.params.storeId
