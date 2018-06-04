@@ -29,6 +29,8 @@ class App extends React.Component {
       context: this,
       state: "fishes"
     });
+
+
   }
 
   componentWillUnmount() {
@@ -47,6 +49,8 @@ class App extends React.Component {
     fishes: {},
     order: {}
   };
+
+
 
   loadSampleFishes = () => {
     this.setState({ fishes: sampleFishes });
@@ -113,6 +117,8 @@ class App extends React.Component {
           editFish={this.editFish}
           deleteFish={this.deleteFish}
           loadSampleFishes={this.loadSampleFishes}
+          storeId={this.props.match.params.storeId}
+
         />
       </div>
     );
